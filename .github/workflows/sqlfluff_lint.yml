@@ -2,11 +2,13 @@ name: SQLFluff
 
 on:
   push:
+    paths:
+      -'dbt/**'
     branches: main
 
-#env:
-#  PYTHON_VERSION: '3.8.12'
-#  SQLFLUFF_VERSION: '1.4.5'
+env:
+  PYTHON_VERSION: '3.8.12'
+  SQLFLUFF_VERSION: '1.4.5'
 
 
 jobs:
@@ -15,12 +17,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: Install Python
-        uses: "actions/setup-python@v2"
+      - name: Install Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.7"
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: install sqlfluff
-        run: "pip install sqlfluff"
+        run: "pip install sqlfluff==${{ env.PYTHON_VERSION }}"
       - name: Get changed files
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.4
