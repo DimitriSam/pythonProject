@@ -31,8 +31,7 @@ jobs:
         uses: tj-actions/changed-files@v35
         with:
           separator: " "
-          files: |
-              *.sql
+          files: "*.sql"
 
 
       - name: Run step if any file(s) in the docs folder change
