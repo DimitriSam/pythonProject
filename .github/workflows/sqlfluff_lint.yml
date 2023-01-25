@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: install sqlfluff
-        run: "pip install sqlfluff=${{ env.SQLFLUFF_VERSION }}"
+        run: "pip install sqlfluff==${{ env.SQLFLUFF_VERSION }}"
       - name: Get changed files
         id: get_file_changes
         uses: trilom/file-changes-action@v1.2.4
