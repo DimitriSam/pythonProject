@@ -2,9 +2,10 @@ name: SQLFluff
 
 on:
   push:
+    branches:
+      - main
     paths:
     - 'dbt/**'
-    branches: main
 
 env:
   PYTHON_VERSION: '3.8.12'
