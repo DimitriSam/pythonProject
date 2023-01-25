@@ -49,10 +49,10 @@ jobs:
         id: sqlfluff_json
 #        if: steps.get_files_to_lint.outputs.lintees != ''
 #        shell: bash -l {0}
-        run: sqlfluff lint dbt/models > annotations.json
-      - name: Annotate
-        uses: yuzutech/annotations-action@v0.3.0
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          title: "SQLFluff Lint"
-          input: "./annotations.json"
+        run: sqlfluff lint dbt/models
+#      - name: Annotate
+#        uses: yuzutech/annotations-action@v0.3.0
+#        with:
+#          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+#          title: "SQLFluff Lint"
+#          input: "./annotations.json"
