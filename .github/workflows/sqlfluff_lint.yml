@@ -2,6 +2,8 @@ name: SQLFluff
 
 on:
   push:
+    paths:
+    - 'dbt/**'
     branches: main
 
 env:
