@@ -2,7 +2,7 @@ name: SQLFluff
 
 on:
   push:
-    branches: feat/branch-test
+    branches: main
 
 env:
   PYTHON_VERSION: '3.8.12'
