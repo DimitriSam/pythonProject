@@ -2,8 +2,6 @@ name: SQLFluff
 
 on:
   push:
-    paths:
-      -'dbt/**'
     branches: main
 
 env:
@@ -16,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.3.0
       - name: Install Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
