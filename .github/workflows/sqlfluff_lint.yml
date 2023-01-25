@@ -26,7 +26,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
-          files: dbt/models/**
+          files: dbt/models.*[.]sql
 
 
       - name: Run step if any file(s) in the docs folder change
