@@ -32,11 +32,12 @@ jobs:
       - name: Get changed files by PR
         id: files
         uses: jitterbit/get-changed-files@v1
-      - run: |
+        shell: bash -l {0}
+        run:
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ];
             then
-              echo env.CONFIG_URL;
+              echo ${{env.CONFIG_URL}};
               echo "SQL file found  ${changed_file}, ${changed_file##*.}., ${env.CONFIG_URL}";
               sqlfluff lint changed_file --config ${{env.CONFIG_URL}};
             fi;
