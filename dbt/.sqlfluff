@@ -1,0 +1,47 @@
+[sqlfluff]
+dialect = bigquery
+templater = jinja
+# https://docs.sqlfluff.com/en/stable/rules.html
+exclude_rules = L008, L011, L012, L013, L014, L055, L056, L071, L034, L015
+
+[sqlfluff:layout:type:comma]
+# spacing_after= touch
+line_position = leading
+
+
+
+# Some rules have their own specific config
+[sqlfluff:rules:L003]
+# Ensure consistent indentation with previous lines
+hanging_indents = True
+
+[sqlfluff:rules:L010]
+# Ensure upper capitalisation of unquoted keywords
+capitalisation_policy = upper
+
+#[sqlfluff:rules:L014]
+# Ensure consistent capitalisation of unquoted identifiers
+#extended_capitalisation_policy = consistent
+
+[sqlfluff:rules:L027]
+# References should be qualified if select has more than one referenced table/view.
+
+[sqlfluff:rules:L030]
+# Ensure upper capitalisation of function names
+extended_capitalisation_policy = upper
+
+[sqlfluff:rules:L036]
+# Select targets should be on a new line unless there is only one select target
+wildcard_policy = multiple
+
+[sqlfluff:rules:L040]
+# Ensure upper capitalisation of Null & Boolean Literals
+capitalisation_policy = upper
+
+[sqlfluff:rules:L054]
+# Use explicit column name references or implicit positional references with GROUP BY/ORDER BY
+group_by_and_order_by_style = consistent
+
+[sqlfluff:rules:L063]
+# Ensure upper capitalisation of datatypes
+extended_capitalisation_policy = upper
