@@ -34,7 +34,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            if [ "${changed_file##*.}" == "sql"];
+            if [ "${changed_file##*.}" == "sql" ];
             then
               echo "SQL file found  ${changed_file}, ${changed_file##*.}.";
             fi;
