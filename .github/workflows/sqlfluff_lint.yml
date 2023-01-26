@@ -32,11 +32,9 @@ jobs:
       - name: Get changed files by PR
         id: files
         uses: jitterbit/get-changed-files@v1
-        with:
-          format: 'sql'
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with  ${changed_file}."
+            echo "Do something with  ${changed_file}, ${changed_file##*.}."
           done
         
 #      - name: Get changed files by PR
