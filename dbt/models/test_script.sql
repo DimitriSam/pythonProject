@@ -2,7 +2,7 @@ SELECT
     cus.name
     , cus.last_name
     , cus.date_created
-    , amount
+    , tr.amount
     , tr.transaction_date
 FROM customers AS cus
 INNER JOIN transactions AS tr ON cus.customer_id = tr.id
