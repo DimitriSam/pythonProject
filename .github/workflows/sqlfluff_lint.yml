@@ -3,9 +3,8 @@ name: SQLFluff lint
 on:
   pull_request:
     types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
-    branches:
-      - main
-#      - hi
+#    branches:
+#      - main
     paths:
     - 'dbt/**'
     - '.github/workflows/sqlfluff_lint.yml'
