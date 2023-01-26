@@ -43,4 +43,4 @@ jobs:
       - name: Lint dbt models
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         shell: bash -l {0}
-        run: sqlfluff lint --dialect bigquery ${{ steps.changed-files-specific.outputs.all_changed_files }}
+        run: sqlfluff lint ${{ steps.changed-files-specific.outputs.all_changed_files }}
