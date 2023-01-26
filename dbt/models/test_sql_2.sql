@@ -1,3 +1,4 @@
-Select *
-from customers cus
-Join employees em on em.id = cus.id
+SELECT
+    cus.name
+FROM customers cus
+INNER JOIN employees em ON em.id = cus.id
