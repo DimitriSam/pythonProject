@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+#      - hi
     paths:
     - 'dbt/**'
     - '.github/workflows/sqlfluff_lint.yml'
