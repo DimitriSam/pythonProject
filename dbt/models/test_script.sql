@@ -1,6 +1,6 @@
 SELECT
     cus.name
-    , cus.last_name
+   , cus.last_name
     , cus.date_created
     , cus.amount
     , tr.transaction_date
