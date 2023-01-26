@@ -34,7 +34,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
+            echo "Do something with  ${changed_file}."
           done
         
 #      - name: Get changed files by PR
