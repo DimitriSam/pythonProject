@@ -1,9 +1,8 @@
-select
-    cus.name,
-    cus.last_name,
-    cus.email,
-    cus.date_created,
-    cus.amount,
-    tr.transaction_date
-from customers as cus
-inner join transaction as tr on tr.id = cus.customer_id
+SELECT
+    cus.name
+    , cus.last_name
+    , cus.date_created
+    , cus.amount
+    , tr.transaction_date
+FROM customers AS cus
+INNER JOIN transaction AS tr ON tr.id = cus.customer_id
