@@ -28,6 +28,17 @@ jobs:
       - name: install sqlfluff
         run: "pip install sqlfluff==${{ env.SQLFLUFF_VERSION }}"
 
+
+      - name: Get changed files by PR
+        id: changed-files-pr
+        uses: tj-actions/changed-files@v14.6
+
+      - name: List all changed files
+        run: |
+            for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+                echo "$file was changed"
+              done
+
       - name: Get changed files in the dbt/models folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
