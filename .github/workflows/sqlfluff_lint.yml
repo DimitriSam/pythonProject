@@ -13,6 +13,7 @@ env:
   PYTHON_VERSION: '3.8.12'
   SQLFLUFF_VERSION: '1.4.5'
   CONFIG_URL: ./dbt/.sqlfluff
+  PR_NUMBER: ${{ github.event.number }}
 
 
 jobs:
@@ -31,14 +32,9 @@ jobs:
 
       - name: Get changed files by PR
         id: changed-files-pr
-        uses: tj-actions/changed-files@v14.6
-
-      - name: List all changed files
-        if: steps.changed-files.outputs.all_changed_files == 'true'
-        run: |
-            for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-                echo "$file was changed"
-              done
+        run: gh pr view ${{ env.PR_NUMBER }} --json files -q '.files[].path'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
