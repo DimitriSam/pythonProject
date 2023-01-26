@@ -34,10 +34,14 @@ jobs:
         uses: tj-actions/changed-files@v14.6
 
       - name: List all changed files
+        if: steps.changed-files.outputs.all_changed_files == 'true'
         run: |
             for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
                 echo "$file was changed"
               done
+
+
+
 
       - name: Get changed files in the dbt/models folder
         id: changed-files-specific

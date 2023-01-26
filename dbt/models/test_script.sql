@@ -1,7 +1,7 @@
 SELECT
     cus.name
     , cus.last_name
-    , cus.date_created
+    , date_created
     , tr.amount
     , tr.transaction_date
 FROM customers AS cus
