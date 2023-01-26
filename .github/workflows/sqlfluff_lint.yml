@@ -1,4 +1,4 @@
-name: SQLFluff
+name: SQLFluff lint
 
 on:
   push:
