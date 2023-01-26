@@ -36,7 +36,7 @@ jobs:
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ];
             then
-              echo "SQL file found  ${changed_file}, ${changed_file##*.}.";
+              echo "SQL file found  ${changed_file}, ${changed_file##*.}., ${env.CONFIG_URL}";
               sqlfluff lint changed_file --config ${{env.CONFIG_URL}}
             fi;
           done
