@@ -1,8 +1,9 @@
 SELECT
     cus.name
-   , cus.last_name
-    , cus.date_created
-    , cus.amount
+    , cus.last_name
+    , date_created
+    , tr.amount
     , tr.transaction_date
 FROM customers AS cus
-INNER JOIN transaction AS tr ON tr.id = cus.customer_id INNER join transaction AS tr ON tr.id = cus.customer_id INNER JOIN transaction AS tr ON tr.id = cus.customer_id
+INNER JOIN transactions AS tr ON cus.customer_id = tr.id
+WHERE (cus.date_created < NOW() - 1 AND tr.amount > 10 AND tr.amount IS NOT NULL)
