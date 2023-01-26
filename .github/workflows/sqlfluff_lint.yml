@@ -37,7 +37,7 @@ jobs:
             if [ "${changed_file##*.}" == "sql" ];
             then
               echo "SQL file found  ${changed_file}, ${changed_file##*.}.";
-              sqlfluff lint ${{ changed_file }} --config ${{ env.CONFIG_URL }}
+              sqlfluff lint ${ changed_file } --config ${ env.CONFIG_URL }
             fi;
           done
         
