@@ -44,10 +44,10 @@ jobs:
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
               if [ $? -ne 0 ]; then
                 exit_code=1
-              fi
+              fi;
             fi;
           done
-          exit ${exit_code}
+          exit exit_code
                 
 #      - name: Get changed files by PR
 #        id: changed-files-pr
