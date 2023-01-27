@@ -3,8 +3,8 @@ name: SQLFluff lint
 on:
   pull_request:
     paths:
-    - 'dbt/**'
-    - '.github/workflows/sqlfluff_lint.yml'
+    - "dbt/**"
+    - ".github/workflows/sqlfluff_lint.yml"
     types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
 
 env:
