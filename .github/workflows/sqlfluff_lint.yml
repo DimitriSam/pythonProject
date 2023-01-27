@@ -35,14 +35,19 @@ jobs:
         shell: bash -l {0}
         run:
           export PATHS_LINT=("dbt/models" "dbt/models/cores")
+          exit_code=0
           
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
+              if [ $? -ne 0 ]; then
+                exit_code=1
+              fi
             fi;
-          done || exit 1
+          done
+          exit ${exit_code}
                 
 #      - name: Get changed files by PR
 #        id: changed-files-pr
