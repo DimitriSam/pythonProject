@@ -36,7 +36,7 @@ jobs:
         run:
           export PATHS_LINT=("dbt/models" "dbt/models/cores")
           for changed_file in ${{ steps.files.outputs.all }}; do
-              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}}
+            sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}}
           done
           
                 
