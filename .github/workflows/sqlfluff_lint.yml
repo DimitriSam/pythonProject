@@ -12,7 +12,7 @@ env:
   SQLFLUFF_VERSION: '1.4.5'
   CONFIG_URL: ./dbt/.sqlfluff
   PR_NUMBER: ${{ github.event.number }}
-  PATHS_ARRAY: ["dbt/models", "dbt/models/cores"]
+  PATHS_ARRAY: ("dbt/models", "dbt/models/cores")
 
 
 jobs:
