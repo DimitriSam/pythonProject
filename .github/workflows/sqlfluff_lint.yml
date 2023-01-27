@@ -46,6 +46,7 @@ jobs:
               if [ $? -ne 0 ]; 
               then
                 exit_code=1;
+                echo $?;
               fi;
             fi;
           done;
