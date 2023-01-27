@@ -36,7 +36,7 @@ jobs:
         shell: bash -l {0}
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "${{env.PATHS_ARRAY}}";
+            echo "${{env.PATHS_ARRAY}} - ${changed_file%/*} - ${changed_file}";
             if [ "${changed_file##*.}" == "sql" ];
             then
               echo "========== > Lint file  ${changed_file}";
