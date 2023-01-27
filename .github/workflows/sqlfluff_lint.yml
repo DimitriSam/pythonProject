@@ -34,7 +34,6 @@ jobs:
         
       - name:  Lint dbt models
         shell: bash -l {0}
-        env:
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
           printf '%s\0' "${{env.PATHS_ARRAY[@]}}"
