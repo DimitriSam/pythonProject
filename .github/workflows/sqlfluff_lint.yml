@@ -42,7 +42,7 @@ jobs:
               echo "========== > Lint file  ${changed_file}"
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}}
             fi
-          done
+          done;
           
                 
 #      - name: Get changed files by PR
