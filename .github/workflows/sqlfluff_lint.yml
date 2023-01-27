@@ -35,11 +35,10 @@ jobs:
       - name:  Lint dbt models
         shell: bash -l {0}
         env:
-          PATHS_LINT: {$env.PATHS_ARRAY}
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
           printf '%s\0' "${{env.PATHS_ARRAY[@]}}"
-            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
+            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${{env.PATHS_LINT[@]}}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
