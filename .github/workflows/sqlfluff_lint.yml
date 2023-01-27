@@ -37,7 +37,7 @@ jobs:
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "${{env.PATHS_ARRAY}} - ${changed_file%/*} - ${changed_file}";
-            if [ "${changed_file##*.}" == "sql" ] && [contains(env.PATHS_ARRAY,${changed_file%/*} ];
+            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${{env.PATHS_ARRAY}}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
