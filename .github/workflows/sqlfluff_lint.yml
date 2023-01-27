@@ -47,7 +47,7 @@ jobs:
               fi;
             fi;
           done
-          exit ${exit_code}
+          
                 
 #      - name: Get changed files by PR
 #        id: changed-files-pr
