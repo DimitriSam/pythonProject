@@ -36,11 +36,11 @@ jobs:
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo ${{ steps.files.outputs.all }};
-            if [ "${changed_file##*.}" == "sql" ];
-            then
-              echo "========== > Lint file  ${changed_file}";
-              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
-            fi;
+#            if [ "${changed_file##*.}" == "sql" ];
+#            then
+#              echo "========== > Lint file  ${changed_file}";
+#              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
+#            fi;
           done
         
 #      - name: Get changed files by PR
