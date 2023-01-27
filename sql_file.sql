@@ -1,1 +1,1 @@
-select something from random_table
+select something from random_table;
