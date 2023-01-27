@@ -1,2 +1,2 @@
-Changes outside of dbt
+changes outside dbt folder
 
