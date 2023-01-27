@@ -34,9 +34,7 @@ jobs:
       - name:  Lint dbt models
         shell: bash -l {0}
         run:
-          export PATHS_LINT=("dbt/models" "dbt/models/cores")
-          export exit_code=0
-          
+          export PATHS_LINT=("dbt/models" "dbt/models/cores")          
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
