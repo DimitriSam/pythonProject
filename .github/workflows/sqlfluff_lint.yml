@@ -48,7 +48,8 @@ jobs:
                 exit_code=1;
               fi;
             fi;
-          done
+          done;
+          exit ${exit_code}
           
                 
 #      - name: Get changed files by PR
