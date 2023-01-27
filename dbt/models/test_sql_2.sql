@@ -1,5 +1,2 @@
-SELECT cus.name
-FROM customers cus
-INNER JOIN employees em ON em.id = cus.id
-ON em.date = cus.date
-
+SELECT * , PARSE_DATE('%Y%m%d',_TABLE_SUFFIX) AS d
+from {{ source('snapshots', 'chargeback_and_late_failure_prediction_output_*') }}

@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
     - "dbt/models/**"
-    - ".github/workflows/sqlfluff_lint.yml"
+#    - ".github/workflows/sqlfluff_lint.yml"
     types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
 
 env:
@@ -35,7 +35,7 @@ jobs:
         shell: bash -l {0}
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
-            if [ "${changed_file##*.}" == "sql" ];
+            if [ "${changed_file##*.}" == "sql" ] && [ ${changed_file%/*} ];
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
