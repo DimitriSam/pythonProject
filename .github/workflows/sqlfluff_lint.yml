@@ -35,7 +35,7 @@ jobs:
         shell: bash -l {0}
         run:
           export PATHS_LINT=("dbt/models" "dbt/models/cores")
-          exit_code=0
+          export exit_code=0
           
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
@@ -47,7 +47,7 @@ jobs:
               fi;
             fi;
           done
-          exit exit_code
+          exit ${exit_code}
                 
 #      - name: Get changed files by PR
 #        id: changed-files-pr
