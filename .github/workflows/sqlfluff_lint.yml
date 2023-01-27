@@ -45,8 +45,6 @@ jobs:
               if [ $? -ne 0 ]; 
               then
                 exit_code=1;
-                echo $?;
-                echo "HIII";
               fi;
             fi;
           done;
