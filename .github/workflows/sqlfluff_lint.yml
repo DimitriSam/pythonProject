@@ -39,10 +39,10 @@ jobs:
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
-              echo "========== > Lint file  ${changed_file}"
+              echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}}
-            fi
-          done;
+            fi;
+          done
           
                 
 #      - name: Get changed files by PR
