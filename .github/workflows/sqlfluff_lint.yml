@@ -35,6 +35,7 @@ jobs:
         shell: bash -l {0}
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
+            echo ${{ steps.files.outputs.all }};
             if [ "${changed_file##*.}" == "sql" ];
             then
               echo "========== > Lint file  ${changed_file}";
