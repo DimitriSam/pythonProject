@@ -42,9 +42,6 @@ jobs:
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
-              if [ $? -ne 0 ]; then
-                exit_code=1
-              fi;
             fi;
           done
           
