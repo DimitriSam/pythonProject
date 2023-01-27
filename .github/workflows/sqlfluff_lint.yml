@@ -44,6 +44,8 @@ jobs:
             fi;
           done
         
+          sqlfluff lint dbt/models/cores/core_state.sql --config ${{env.CONFIG_URL}};
+        
 #      - name: Get changed files by PR
 #        id: changed-files-pr
 #        run: gh pr view ${{ env.PR_NUMBER }} --json files -q '.files[].path'
