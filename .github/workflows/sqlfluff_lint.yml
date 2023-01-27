@@ -12,7 +12,6 @@ env:
   SQLFLUFF_VERSION: '1.4.5'
   CONFIG_URL: ./dbt/.sqlfluff
   PR_NUMBER: ${{ github.event.number }}
-  PATHS_ARRAY: ("dbt/models", "dbt/models/cores")
 
 
 jobs:
@@ -35,9 +34,10 @@ jobs:
       - name:  Lint dbt models
         shell: bash -l {0}
         run:
+          export PATHS_LINT=("dbt/models", "dbt/models/cores")
           for changed_file in ${{ steps.files.outputs.all }}; do
           printf '%s\0' "${{env.PATHS_ARRAY[@]}}"
-            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "$PATHS_ARRAY[@]" | grep -Fxqz -- ${changed_file%/*};
+            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
