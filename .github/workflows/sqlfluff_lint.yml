@@ -12,6 +12,7 @@ env:
   SQLFLUFF_VERSION: '1.4.5'
   CONFIG_URL: ./dbt/.sqlfluff
   PR_NUMBER: ${{ github.event.number }}
+  PATHS_ARRAY: dbt/models
 
 
 jobs:
@@ -35,14 +36,12 @@ jobs:
         shell: bash -l {0}
         run:
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "${changed_file}";
+            if [ "${changed_file##*.}" == "sql" ];
+            then
+              echo "========== > Lint file  ${changed_file}";
+              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
+            fi;
           done
-#            if [ "${changed_file##*.}" == "sql" ];
-#            then
-#              echo "========== > Lint file  ${changed_file}";
-#              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
-#            fi;
-          
         
 #      - name: Get changed files by PR
 #        id: changed-files-pr
