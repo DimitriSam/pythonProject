@@ -40,7 +40,7 @@ jobs:
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
-              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}}
+              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
             fi;
           done
           
