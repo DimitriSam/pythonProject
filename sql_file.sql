@@ -1,1 +1,3 @@
-select something from random_table
+select * from customers
+--ADD AN additional comment
+

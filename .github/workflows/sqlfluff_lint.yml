@@ -3,8 +3,8 @@ name: SQLFluff lint
 on:
   pull_request:
     paths:
-    - "dbt/**"
-    - ".github/workflows/sqlfluff_lint.yml"
+    - "dbt/models/**"
+#    - ".github/workflows/sqlfluff_lint.yml"
     types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
 
 env:
@@ -34,14 +34,32 @@ jobs:
       - name:  Lint dbt models
         shell: bash -l {0}
         run:
+          export PATHS_LINT=("dbt/models" "dbt/models/cores")
+          exit_code=0
+          
           for changed_file in ${{ steps.files.outputs.all }}; do
-            if [ "${changed_file##*.}" == "sql" ];
+            if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
               sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
+              if [ $? -ne 0 ]; 
+              then
+                exit_code=1;
+              fi;
             fi;
-          done
+          done;
+          exit ${exit_code};
         
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v14.6
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+                
 #      - name: Get changed files by PR
 #        id: changed-files-pr
 #        run: gh pr view ${{ env.PR_NUMBER }} --json files -q '.files[].path'
