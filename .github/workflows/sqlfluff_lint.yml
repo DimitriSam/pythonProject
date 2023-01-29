@@ -46,17 +46,8 @@ jobs:
       - name:  Lint dbt models
         shell: bash -l {0}
         run:
-          exit_code=0
-          
-          for changed_file in ${{ steps.changed-files.outputs.all_changed_files }}; do 
-            echo "========== > Lint file  ${changed_file}";
-            sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
-            if [ $? -ne 0 ]; 
-            then
-              exit_code=1;
-            fi;
-          done;
-          exit ${exit_code};
+          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }} --config ${{env.CONFIG_URL}};
+
         
 #      - name: Get changed files by PR
 #        id: changed-files-pr
