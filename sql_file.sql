@@ -1,3 +1,2 @@
-select * from customers
---ADD AN additional comment
-
+select * from customers;
+select * from transactions;
