@@ -1,3 +1,3 @@
 SELECT
     *
-FROM purchases;
+FROM purchases
