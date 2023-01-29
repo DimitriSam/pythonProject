@@ -37,17 +37,17 @@ jobs:
             echo "$file was changed"
           done
                 
-      - name: Get changed files by PR
-        id: files
-        uses: jitterbit/get-changed-files@v1
-        
+#      - name: Get changed files by PR
+#        id: files
+#        uses: jitterbit/get-changed-files@v1
+#
       - name:  Lint dbt models
         shell: bash -l {0}
         run:
           export PATHS_LINT=("dbt/models" "dbt/models/cores")
           exit_code=0
           
-          for changed_file in ${{ steps.files.outputs.all }}; do
+          for changed_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [ "${changed_file##*.}" == "sql" ] && printf '%s\0' "${PATHS_LINT[@]}" | grep -Fxqz -- ${changed_file%/*};
             then
               echo "========== > Lint file  ${changed_file}";
