@@ -1,1 +1,3 @@
-select * FROM snapshots;
+SELECT
+    *
+FROM snapshots;
