@@ -48,14 +48,13 @@ jobs:
         run:
           exit_code=0
           
-          for changed_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          for changed_file in ${{ steps.changed-files.outputs.all_changed_files }}; do 
+            echo "========== > Lint file  ${changed_file}";
+            sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
+            if [ $? -ne 0 ]; 
             then
-              echo "========== > Lint file  ${changed_file}";
-              sqlfluff lint ${changed_file} --config ${{env.CONFIG_URL}};
-              if [ $? -ne 0 ]; 
-              then
-                exit_code=1;
-              fi;
+              exit_code=1;
+            fi;
           done;
           exit ${exit_code};
         
