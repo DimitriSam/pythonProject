@@ -3,81 +3,74 @@ name: SQLFluff lint
 on:
   pull_request:
     paths:
-    - "dbt/plum/models/**"
+    - "dbt/models/**"
 #    - ".github/workflows/sqlfluff_lint.yml"
     types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
 
 env:
   PYTHON_VERSION: '3.8.12'
-  GCP_WORKLOAD_IDENTITY_PROVIDER: projects/237249625410/locations/global/workloadIdentityPools/github-actions/providers/github-actions-provider
-  GOOGLE_SERVICE_ACCOUNT: composer-analytics-sync-dags@plum-data-analytics.iam.gserviceaccount.com
+  SQLFLUFF_VERSION: '1.4.5'
   CONFIG_URL: ./dbt/.sqlfluff
-  PROFILES_DIR: ./dbt/profiles/
-  PROJECT_DIR: ./dbt/plum/
+  PR_NUMBER: ${{ github.event.number }}
+
 
 jobs:
   lint-models:
     runs-on: ubuntu-latest
-    permissions:
-      contents: "read"
-      id-token: "write"
     steps:
       - name: checkout
         uses: actions/checkout@v3.3.0
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1.0.0
-        with:
-          workload_identity_provider: ${{ env.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ env.GOOGLE_SERVICE_ACCOUNT }}
-
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
+      - name: Install Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-
-      - name: Cache virtual environment
-        uses: actions/cache@v3
-        with:
-          path: dbt/.venv
-          key: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('dbt/poetry.lock') }}
+      - name: install sqlfluff
+        run: "pip install sqlfluff==${{ env.SQLFLUFF_VERSION }}"
       
-      - name: Move poetry files to parent directory
-        run: |
-          cp dbt/pyproject.toml ../
-          cp dbt/poetry.lock ../
-          
-          
-      - name: Install dbt dependencies
-        run: |
-          pip install --upgrade pip
-          pip install poetry==1.2.0
-          poetry config virtualenvs.in-project true
-          poetry install --remove-untracked
-
-      - name: Clean dbt, install deps and compile
-        run: |
-          echo "Cleaning dbt"
-          poetry run dbt clean --profiles-dir dbt/profiles --project-dir dbt/plum
-          echo "Debugging dbt deps"
-          poetry run dbt debug --profiles-dir dbt/profiles --project-dir dbt/plum
-          echo "Compiling dbt"
-          poetry run dbt deps --profiles-dir dbt/profiles --project-dir dbt/plum
-
-      - name: Get changed files by PR
+      - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v35.4.4
         with:
-          path: dbt/plum
-          files: models/staging/**/*.sql
+          files: dbt/models/**/*.sql
 
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-
+                
+#      - name: Get changed files by PR
+#        id: files
+#        uses: jitterbit/get-changed-files@v1
+#
       - name:  Lint dbt models
-        run: |
-          poetry run sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }} --config ${{env.CONFIG_URL}};
+        shell: bash -l {0}
+        run:
+          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }} --config ${{env.CONFIG_URL}};
+
+        
+#      - name: Get changed files by PR
+#        id: changed-files-pr
+#        run: gh pr view ${{ env.PR_NUMBER }} --json files -q '.files[].path'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#
+#      - name: Get changed files in the dbt/models folder
+#        id: changed-files-specific
+#        uses: tj-actions/changed-files@v35
+#        with:
+#          separator: " "
+#          files: |
+#            **/*.sql
+#
+#      - name: Run step if any file(s) in the dbt folder change
+#        if: steps.changed-files-specific.outputs.any_changed == 'true'
+#        run: |
+#          echo "One or more files in the docs folder has changed."
+#          echo "--------> ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+#
+#      - name: Lint dbt models
+#        if: steps.changed-files-specific.outputs.any_changed == 'true'
+#        shell: bash -l {0}
+#        run: sqlfluff lint ${{ steps.changed-files-specific.outputs.all_changed_files }} --config ${{ env.CONFIG_URL }}
