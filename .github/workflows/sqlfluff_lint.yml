@@ -47,7 +47,8 @@ jobs:
         run: |
           cp dbt/pyproject.toml ../
           cp dbt/poetry.lock ../
-
+          
+          
       - name: Install dbt dependencies
         run: |
           pip install --upgrade pip
