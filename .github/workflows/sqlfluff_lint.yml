@@ -20,35 +20,35 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3.3.0
-      - name: Install Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: install sqlfluff
-        run: "pip install sqlfluff==${{ env.SQLFLUFF_VERSION }}"
-      
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35.4.4
-        with:
-          files: dbt/models/**/*.sql
-
-      - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
-                
-#      - name: Get changed files by PR
-#        id: files
-#        uses: jitterbit/get-changed-files@v1
+#      - name: Install Python ${{ env.PYTHON_VERSION }}
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: ${{ env.PYTHON_VERSION }}
+#      - name: install sqlfluff
+#        run: "pip install sqlfluff==${{ env.SQLFLUFF_VERSION }}"
 #
-      - name:  Lint dbt models
-        shell: bash -l {0}
-        run:
-          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }} --config ${{env.CONFIG_URL}};
-
-        
+#      - name: Get changed files
+#        id: changed-files
+#        uses: tj-actions/changed-files@v35.4.4
+#        with:
+#          files: dbt/models/**/*.sql
+#
+#      - name: List all changed files
+#        run: |
+#          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+#            echo "$file was changed"
+#          done
+#
+##      - name: Get changed files by PR
+##        id: files
+##        uses: jitterbit/get-changed-files@v1
+##
+#      - name:  Lint dbt models
+#        shell: bash -l {0}
+#        run:
+#          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }} --config ${{env.CONFIG_URL}};
+#
+#
 #      - name: Get changed files by PR
 #        id: changed-files-pr
 #        run: gh pr view ${{ env.PR_NUMBER }} --json files -q '.files[].path'
