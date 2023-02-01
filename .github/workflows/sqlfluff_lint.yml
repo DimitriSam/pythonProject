@@ -5,7 +5,7 @@ on:
     paths:
       - 'dbt/models/**'
 #    - ".github/workflows/sqlfluff_lint.yml"
-#    types: [ 'opened', 'edited', 'reopened', 'synchronize' ]
+    types: [ 'opened', 'edited', 'reopened' ]
 
 env:
   PYTHON_VERSION: '3.8.12'
