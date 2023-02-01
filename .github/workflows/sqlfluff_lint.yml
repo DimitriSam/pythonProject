@@ -2,7 +2,8 @@ name: SQLFluff lint
 
 on:
   pull_request:
-    paths: dbt/models/**
+    paths:
+      -'dbt/models/**'
 #    - ".github/workflows/sqlfluff_lint.yml"
     types: [ 'opened', 'edited', 'reopened' ,'synchronize']
 
