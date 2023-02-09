@@ -35,8 +35,8 @@ jobs:
           files: | 
             dbt/models/**/*.sql
           files_ignore: |  
-            dbt/cores/test_sql_2.sql
-            dbt/cores/test_sql_3.sql
+            dbt/models/cores/test_sql_2.sql
+            dbt/models/cores/test_sql_3.sql
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
