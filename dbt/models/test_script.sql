@@ -54,4 +54,4 @@ SELECT
 FROM
   get_started_events
 WHERE
-  event_name IS NOT NULL;
+  event_name IS NOT NULL

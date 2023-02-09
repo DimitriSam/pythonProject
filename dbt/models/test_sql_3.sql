@@ -1,4 +1,4 @@
 SELECT cus.name
 FROM customers cus
 INNER JOIN employers em ON em.id = cus.id;
-SELECT "column" FROM movies
+SELECT "column" FROM movies;
