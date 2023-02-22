@@ -2,7 +2,7 @@ name: SQLFluff lint
 
 on:
   push:
-    types: [ 'opened', 'edited', 'reopened' ,'synchronize']
+#    types: [ 'opened', 'edited', 'reopened' ,'synchronize']
     paths:
       - 'dbt/models/**/*.sql'
 #    - ".github/workflows/sqlfluff_lint.yml"
