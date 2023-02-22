@@ -10,7 +10,6 @@ large_file_skip_byte_limit = 0
 line_position = leading
 
 
-
 # Some rules have their own specific config
 [sqlfluff:rules:L003]
 # Ensure consistent indentation with previous lines

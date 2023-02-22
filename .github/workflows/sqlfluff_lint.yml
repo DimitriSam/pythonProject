@@ -1,7 +1,7 @@
 name: SQLFluff lint
 
 on:
-  pull_request:
+  push:
     types: [ 'opened', 'edited', 'reopened' ,'synchronize']
     paths:
       - 'dbt/models/**/*.sql'
@@ -34,9 +34,7 @@ jobs:
         with:
           files: | 
             dbt/models/**/*.sql
-          files_ignore: |  
-            dbt/models/test_sql_2.sql
-            dbt/models/test_sql_3.sql
+
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
