@@ -5,7 +5,7 @@ on:
 #    types: [ 'opened', 'edited', 'reopened' ,'synchronize']
     paths:
       - 'dbt/models/**/*.sql'
-#    - ".github/workflows/sqlfluff_lint.yml"
+      - ".github/workflows/sqlfluff_lint.yml"
 
 
 env:

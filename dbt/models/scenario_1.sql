@@ -13,5 +13,5 @@ SELECT
 FROM card_transactions
 where s ='test'
     {% if is_incremental() %}
-            AND d >= CURRENT_DATE() - {{ var('DAYS_TO_SYNC_EVENTS') }}
+        AND d >= CURRENT_DATE() - {{ var('DAYS_TO_SYNC_EVENTS') }}
     {% endif %}
